@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @Gralien
 - 👀 I’m interested in Cybersecurity
-- 🌱 I’m currently learning everything i cna get my hnds on
+- 🌱 I’m currently learning everything i can get my hands on
 - 💞️ I’m looking to collaborate on crypto projects and exchanges
 - 📫 Hit me up!
 

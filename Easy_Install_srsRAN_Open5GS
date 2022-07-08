@@ -1,0 +1,56 @@
+open5gs easy install ubuntu 20
+
+After a bunch of time studying and trial and error i'll outline the install the easy way for non computer nerds.
+a basic core open5gs n00b status with ability to write sim cards gsm.
+// for an advanced install build all from sources
+enjoy.
+
+// open5gs install
+$sudo apt install python3-pip python3-setuptools python3-wheel ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev meson
+$sudo apt update
+$sudo apt install software-properties-common
+$sudo add-apt-repository ppa:open5gs/latest
+$sudo apt update
+$sudo apt install open5gs
+
+// Update the Amf config file loacted at /etc/open5gs/amf.yaml by replacing given ip of ngap address to local eth0 ip. And then restart amf service.
+
+...
+
+$ sudo systemctl restart open5gs-amfd
+
+// Update the Upf config file loacted at /etc/open5gs/upf.yaml by replacing given ip of ngap address to local eth0 ip. And then restart upf service.
+$ sudo systemctl restart open5gs-upfd
+
+// forwarding
+$ sudo sysctl -w net.ipv4.ip_forward=1
+$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+$ sudo systemctl stop ufw
+$ sudo iptables -I FORWARD 1 -j ACCEPT
+
+// NODEJS NPM
+$ sudo apt update
+$ sudo apt install curl
+$ curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+$ sudo apt install nodejs
+$ git clone https://github.com/open5gs/open5gs.git
+
+// webgui
+# run webui with npm
+$ cd open5gs
+$ cd webui
+$ npm ci --no-optional && npm run build
+$ npm run dev --host 0.0.0.0
+
+// # the web interface will start on
+//  http://localhost:3000
+//  left open as screen -S <whatever>
+
+# run this command if you are on remote serverand want to access dashboard locally
+$ ssh -L localhost:3000:localhost:3000 ubuntu@ip
+
+Login with follwoing credentials and register ue from dashboard.
+
+Login credentials : username - admin password - 1423
+
+
